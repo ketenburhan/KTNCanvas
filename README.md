@@ -83,7 +83,7 @@ _____________________
 ##### Syntax
     ktnp.subimage(index, dx, dy, ?dw, ?dh, sx, sy, sw, sh)
 ##### Parameters
-* index (Number)
+* index (Number | String | Array)
 * dx (Number)
 * dy (Number)
 * *?*dw*(optional)* (Number) [ default: sw ]
