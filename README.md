@@ -19,7 +19,7 @@ With *2D sprite animations*, game characters can animate easily, so KTNCanvas ca
 * canvas (HTMLElement)
 * c (CanvasRenderingContext2D)
 ### Methods
-_____________________
+
 #### constructor
 ##### Syntax
     new KTNP(?parentElem, ?...imgs)
@@ -157,7 +157,7 @@ _____________________
 * offsetY (Number)
 * anims (*Animation* Array)
 ### Methods
-_____________________
+
 #### constructor
 ##### Syntax
     new Sprite(x, y, w, h, anims, ?state)
@@ -185,7 +185,7 @@ _____________________
 * imgI (Number)
 * frameI (Number)
 ### Methods
-_____________________
+
 #### constructor
 ##### Syntax
     new Animation(fr, ...arr)
