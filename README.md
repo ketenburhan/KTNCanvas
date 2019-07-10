@@ -9,13 +9,15 @@ With *2D sprite animations*, game characters can animate easily, so KTNCanvas ca
 # Examples
 To run examples follow the steps:
 * Clone this repo
-
-	git clone https://github.com/ketenburhan/KTNCanvas.git
-	cd KTNCanvas
+```
+git clone https://github.com/ketenburhan/KTNCanvas.git
+cd KTNCanvas
+```
 * Run localhost (for example in python3)
-
-	python3 -m http.server 3000
-* And run browser and go 'localhost:3000/examples/'
+```
+python3 -m http.server 3000
+```
+* And run browser and go '[http://localhost:3000/examples/](http://localhost:3000/examples/)'
 * That's all!
 
 # Get started
