@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+
+
+<button onclick="sprite.state='first'">Play First Animation</button><br>
+<button onclick="sprite.state='second'">Play Second Animation</button><br>
+
+<script src="../KTNCanvas.js"></script>
+<script>
+
+{
+// calling the main class
+var ktnp = new KTNP(document.body, "images/bg.jpg","images/bg2.jpg","images/bg3.jpg","images/bg4.jpg");
+
+// create undefined varible called sprite
+var sprite;
+
+ktnp.init = function() {
+    // resize the canvas
+    this.size(100);
+
+    // create animations for sprite
+    let animation1 = new Animation(30, 0,1);
+    let animation2 = new Animation(30, 2,3);
+
+    // create sprite
+    sprite = new Sprite(0, 0, 100, 100, {
+        first: animation1,
+        second:animation2
+    });
+
+    // set state of sprite
+    sprite.state = "first";
+}
+ktnp.loop = function() {
+    // set background to black
+    this.background();
+
+    // render sprite
+    sprite.render(this);
+}
+
+
+
+}
+
+</script>
+
+
+</body>
+</html>

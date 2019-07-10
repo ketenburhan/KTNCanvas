@@ -1,118 +1,104 @@
 class KTNP {
-	constructor(parentElem=document.body,...imgs) {
-		this.imgs = imgs
+	constructor(parentElement=document.body, ...images) {
+		this.imgs = images
 		this.subimgs = {}
-		this._loop = true
+		this.enableloop = true
 		this.w = 300
 		this.h = 300
 
-		this._stroke = "#000000"
-		this._fill	= "#ffffff"
-		this._lineWidth	= 1
-		this.ready = false
+		this.stroke = "#000000"
+		this.fill	= "#ffffff"
+		this.lineWidth	= 1
+		this.frameCount = 0;
+		this.imagesLoaded = false;
+		this.initSetted = false;
 
 		this._init = ()=>{}
-		this.draw = ()=>{}
-		this._load()
+		this.loop = ()=>{}
+		this.loadImages()
 		this.canvas = document.createElement('canvas')
 		this.canvas.width = 300
 		this.canvas.height = 300
-		parentElem.appendChild(this.canvas)
+		parentElement.appendChild(this.canvas)
 		this.c = this.canvas.getContext('2d')
 	}
-	_load(i=0) {
-		if (this.imgs[i] != undefined && typeof this.imgs[i] == "string") {
-			var src = this.imgs[i]
-			this.imgs[i] = new Image()
-			this.imgs[i].src = src
-			this.imgs[i].addEventListener("load",() => {
-				this._load(i+1)
-			}, false)
-		}
-		else  {
-			if (this.ready === false)
-				this.ready = true
-			else {
-				this._init()
-				window.requestAnimationFrame(()=>{this._draw()})
+	loadImages() {
+		var load = (i=0) => {
+			if (this.imgs[i] == undefined) {
+				if (this.initSetted) {
+					this._init();
+					window.requestAnimationFrame(()=>{this.looper()});
+				}
+				this.imagesLoaded = true;
+				return;
 			}
-		}
+			if (this.imgs[i].nodeName === "IMG") {
+				load(i+1);
+				return;
+			}
+			var src = this.imgs[i];
+			this.imgs[i] = new Image();
+			this.imgs[i].src = src;
+			this.imgs[i].addEventListener("load",() => {
+				load(i+1);
+			}, false);
+		};
+		load();
+	}
+	get init() {
+		return this._init;
 	}
 	set init(a) {
 		this._init = a
-		if (this.ready) {
+		if (this.imagesLoaded) {
 			this._init()
-			window.requestAnimationFrame(()=>{this._draw()})
+			window.requestAnimationFrame(()=>{this.looper()})
 		}
-		this.ready = true
+		this.initSetted = true;
 	}
-	_draw() {
-		if (this._loop)
-			window.requestAnimationFrame(this.draw)
-		window.requestAnimationFrame(()=>{this._draw()})
-	}
-	noloop() {
-		this._loop=false
-	}
-	loop() {
-		this._loop=true
-	}
-	noFill() {
-		this._fill = false
-	}
-	fill(color) {
-		this._fill = color
-	}
-	noStroke() {
-		this._stroke = false
-	}
-	stroke(color) {
-		this._stroke = color
-	}
-	lineWidth(width) {
-		this._lineWidth = width
+	looper() {
+		if (this.enableloop)
+			this.loop.call(this);
+		this.frameCount++;
+		window.requestAnimationFrame(()=>{this.looper()})
 	}
 	_r() {
-		if (this._fill != false)
+		if (this.fill != false)
 			this.c.fill()
-		if (this._stroke != false)
+		if (this.stroke != false)
 			this.c.stroke()
 	}
 	_rs() {
-		if (this._fill != false) 
-			this.c.fillStyle = this._fill
-		if (this._stroke != false) {
-			this.c.strokeStyle = this._stroke
-			this.c.lineWidth = this._lineWidth
+		if (this.fill != false) 
+			this.c.fillStyle = this.fill
+		if (this.stroke != false) {
+			this.c.strokeStyle = this.stroke
+			this.c.lineWidth = this.lineWidth
 		}
 	}
 	image(index, x,y,w=this.imgs[index].width,h=this.imgs[index].height) {
-		type.check(index,"number", x,"number", y,"number", w,"number", h,"number")
 		this.c.drawImage(this.imgs[index],x,y,w,h)
 	}
-	subimage(index, dx, dy, dw=sw, dh=sh, sx, sy, sw, sh) {
-		type.check(index,true, dx,"number", dy,"number", dw,"number", dh,"number")
-
-		if (typeof index == "number")
-			this.c.drawImage(this.imgs[index], sx, sy, sw, sh, dx, dy, dw, dh)
-		else if (typeof index == "string") {
-			ni = this.subimgs[index]
+	subimage(a, dx, dy, dw=sw, dh=sh, sx, sy, sw, sh) {
+		if (typeof a == "number")
+			this.c.drawImage(this.imgs[a], sx, sy, sw, sh, dx, dy, dw, dh)
+		else if (typeof a == "string") {
+			ni = this.subimgs[a]
 			this.c.drawImage(this.imgs[ni[0]], ni[1],ni[2],ni[3],ni[4], dx, dy, dw, dh)
 		}
-		else if (Array.isArray(index))
-			this.c.drawImage(this.imgs[index[0]], index[1],index[2],index[3],index[4], dx, dy, dw, dh)
+		else if (Array.isArray(a))
+			this.c.drawImage(this.imgs[a[0]], a[1],a[2],a[3],a[4], dx, dy, dw, dh)
 		else {
 			console.error("hata")
-			return false
+			return;
 		}
 
 	}
-	size(x=100, y=x) {
-		type.check(x,"number", y,"number")
-		this.canvas.width = x
-		this.canvas.height = y
-		this.w = x
-		this.h = y
+	size(w=100, h=w) {
+		this.canvas.width = w
+		this.canvas.height = h
+		this.w = w
+		this.h = h
 	}
 	clear() {
 		this.c.clearRect(0,0,this.w, this.h)
@@ -122,7 +108,6 @@ class KTNP {
 		this.c.fillRect(0,0,this.w, this.h)
 	}
 	line(x1,y1,x2,y2) {
-		type.check(x1,"number", y1,"number", x2,"number", y2,"number")
 		this._rs()
 		this.c.beginPath()
 		this.c.moveTo(x1,y1)
@@ -131,7 +116,6 @@ class KTNP {
 		this._r()
 	}
 	rect(x,y,w,h) {
-		type.check(x,"number", y,"number", w,"number", h,"number")
 		this._rs()
 		this.c.beginPath()
 		this.c.rect(x,y,w,h)
@@ -149,43 +133,8 @@ class KTNP {
 		this._r()
 	}
 	createSubimage(name,index, sx,sy,sw,sh) {
-		type.check(name,"string", index,"number", sx,"number", sy,"number", sw,"number", sh,"number")
 		this.subimgs[name] = [index,sx,sy,sw,sh]
-		return this.subimgs[name]
-	}
-}
-class Sprite {
-	constructor(x,y,w,h,anims, state="default") {
-		type.check(x,"number", y,"number", w,"number", h,"number", anims,true)
-		this.x = x
-		this.y = y
-		this.w = w
-		this.h = h
-		this.offsetX = 0
-		this.offsetY = 0
-		this.anims = anims
-		this._state = state
-	}
-	render(ktnp) {
-		this.anims[this._state].play(ktnp,this.gx,this.gy,this.w,this.h)
-	}
-	get state() {
-		return this._state;
-	}
-	set state(a) {
-		if (a in this.anims) {
-			this.anims[this._state].stop()
-			this._state = a
-		}
-		else {
-			console.error(`hata: ${a} adında bir animasyon yok.`)
-		}
-	}
-	get gx() {
-		return this.x - this.offsetX
-	}
-	get gy() {
-		return this.y - this.offsetY
+		return this.subimgs[name];
 	}
 }
 class Animation {
@@ -219,5 +168,39 @@ class Animation {
 	replay(ktnp,x,y,w,h) {
 		this.stop()
 		this.play(ktnp,x,y,w,h)
+	}
+}
+class Sprite {
+	constructor(x,y,w,h,anims, state="default") {
+		this.x = x
+		this.y = y
+		this.w = w
+		this.h = h
+		this.offsetX = 0
+		this.offsetY = 0
+		this.anims = anims
+		this._state = state
+	}
+	render(ktnp) {
+		this.anims[this._state].play(ktnp,this.gx,this.gy,this.w,this.h)
+	}
+	get state() {
+		return this._state;
+	}
+	set state(a) {
+		if (a in this.anims) {
+			if (this.anims[this._state])
+				this.anims[this._state].stop();
+			this._state = a
+		}
+		else {
+			console.error(`hata: ${a} adında bir animasyon yok.`)
+		}
+	}
+	get gx() {
+		return this.x - this.offsetX
+	}
+	get gy() {
+		return this.y - this.offsetY
 	}
 }

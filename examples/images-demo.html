@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+<script src="../KTNCanvas.js"></script>
+<script>
+
+{
+// calling the main class
+var ktnp = new KTNP(document.body, "images/bg.jpg","images/bg2.jpg","images/bg3.jpg");
+
+ktnp.init = function() {
+    // resize the canvas
+    this.size(600, 200);
+
+    // display images
+    this.image(0, 000, 0, 200, 200);
+    this.image(1, 200, 0, 200, 200);
+    this.image(2, 400, 0, 200, 200);
+
+}
+
+}
+
+</script>
+</body>
+</html>

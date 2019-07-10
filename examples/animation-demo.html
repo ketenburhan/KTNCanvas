@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+<script src="../KTNCanvas.js"></script>
+<script>
+
+{
+
+// calling the main class
+var ktnp = new KTNP(document.body, "images/bg.jpg","images/bg2.jpg","images/bg3.jpg","images/bg4.jpg");
+
+// create undefined varible called sprite
+var animation;
+
+ktnp.init = function() {
+    // resize the canvas
+    this.size(100);
+
+    // create animation
+    animation = new Animation(30, 0,1,2,3);
+}
+ktnp.loop = function() {
+    // set background to black
+    this.background();
+
+    // play animation
+    animation.play(this, 0, 0, 100, 100);
+}
+
+}
+
+</script>
+
+</body>
+</html>
