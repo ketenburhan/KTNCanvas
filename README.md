@@ -9,17 +9,19 @@ With *2D sprite animations*, game characters can animate easily, so KTNCanvas ca
 # Examples
 To run examples follow the steps:
 * Clone this repo
-    git clone https://github.com/ketenburhan/KTNCanvas.git
-    cd KTNCanvas
+
+	git clone https://github.com/ketenburhan/KTNCanvas.git
+	cd KTNCanvas
 * Run localhost (for example in python3)
-    python3 -m http.server 3000
+
+	python3 -m http.server 3000
 * And run browser and go 'localhost:3000/examples/'
 * That's all!
 
 # Get started
 * [download KTNCanvas.js here](https://github.com/ketenburhan/KTNCanvas/releases/download/0.1.0/KTNCanvas.js)
 * add to html and use it
-    <script src="KTNCanvas.js"></script>
+	<script src="KTNCanvas.js"></script>
 
 # Reference
 ## <a name="classKTNP">KTNP</a>
@@ -54,7 +56,7 @@ To run examples follow the steps:
 
 #### <a name="classKTNPconstructor">constructor</a>
 ##### syntax
-    new KTNP(parentElement, ...images)
+	new KTNP(parentElement, ...images)
 ##### parameters
 - parentElement (HTMLElement)
 - ...images (String Array)
@@ -62,14 +64,14 @@ To run examples follow the steps:
 #### <a name="classKTNPloadImages">loadImages</a>
 Load ktnp.imgs.
 ##### syntax
-    ktnp.loadImages()
+	ktnp.loadImages()
 ##### parameters
 No parameters
 
 #### <a name="classKTNPimage">image</a>
 Draws image on canvas.
 ##### syntax
-    ktnp.image(index, x, y, ?w, ?h)
+	ktnp.image(index, x, y, ?w, ?h)
 ##### parameters
 - index (Number)
 - x (Number)
@@ -80,9 +82,9 @@ Draws image on canvas.
 #### <a name="classKTNPsubimage">subimage</a>
 Draws a subimage.
 ##### syntax
-    ktnp.subimage(index, dx, dy, ?dw, ?dh, sx, sy, sw, sh)
-    ktnp.subimage(name, dx, dy, ?dw, ?dh)
-    ktnp.subimage(data, dx, dy, ?dw, ?dh)
+	ktnp.subimage(index, dx, dy, ?dw, ?dh, sx, sy, sw, sh)
+	ktnp.subimage(name, dx, dy, ?dw, ?dh)
+	ktnp.subimage(data, dx, dy, ?dw, ?dh)
 ##### parameters
 - index (Number)
 - name (String)
@@ -99,7 +101,7 @@ Draws a subimage.
 #### <a name="classKTNPsize">size</a>
 Resizes the canvas.
 ##### syntax
-    ktnp.size(?w, ?h)
+	ktnp.size(?w, ?h)
 ##### parameters
 - *?*w *optional*(Number) // default: 100
 - *?*h *optional*(Number) // default: *w*
@@ -108,7 +110,7 @@ Resizes the canvas.
 #### <a name="classKTNPclear">clear</a>
 Clears the canvas.
 ##### syntax
-    ktnp.clear()
+	ktnp.clear()
 ##### parameters
 No parameters
 - sh (Number)
@@ -116,14 +118,14 @@ No parameters
 #### <a name="classKTNPbackground">background</a>
 Sets a background color to canvas.
 ##### syntax
-    ktnp.background(?color)
+	ktnp.background(?color)
 ##### parameters
 - *?*color *optional*(color) // default: "#000"
 
 #### <a name="classKTNPline">line</a>
 Draws a line.
 ##### syntax
-    ktnp.line(x1, y1, x2, y2)
+	ktnp.line(x1, y1, x2, y2)
 ##### parameters
 - x1 (Number)
 - y1 (Number)
@@ -133,7 +135,7 @@ Draws a line.
 #### <a name="classKTNPrect">rect</a>
 Draws a rectangle.
 ##### syntax
-    ktnp.rect(x, y, w, h)
+	ktnp.rect(x, y, w, h)
 ##### parameters
 - x (Number)
 - y (Number)
@@ -143,14 +145,14 @@ Draws a rectangle.
 #### <a name="classKTNPpoly">poly</a>
 Draws a polygon.
 ##### syntax
-    ktnp.poly(...v)
+	ktnp.poly(...v)
 ##### parameters
 - ...v (Number Array)
 
 #### <a name="classKTNPcreateSubimage">createSubimage</a>
 Creates a subimage with a name.
 ##### syntax
-    ktnp.createSubimage(name, index, sx, sy, sw, sh)
+	ktnp.createSubimage(name, index, sx, sy, sw, sh)
 ##### parameters
 - name (String)
 - index (Number)
@@ -175,7 +177,7 @@ Creates a subimage with a name.
 
 #### <a name="classAnimationconstructor">constructor</a>
 ##### syntax
-    new Animation(fr, ...arr)
+	new Animation(fr, ...arr)
 ##### parameters
 - fr (Number)
 - ...arr (\[Number|Array|String] Array)
@@ -183,7 +185,7 @@ Creates a subimage with a name.
 #### <a name="classAnimationplay">play</a>
 Plays the animation for a single time.
 ##### syntax
-    ktnp.play(ktnp, x, y, w, h)
+	ktnp.play(ktnp, x, y, w, h)
 ##### parameters
 - ktnp ([*KTNP*](#classKTNP))
 - x (Number)
@@ -195,14 +197,14 @@ Plays the animation for a single time.
 #### <a name="classAnimationstop">stop</a>
 Resets the animation.
 ##### syntax
-    ktnp.stop()
+	ktnp.stop()
 ##### parameters
 No parameters
 
 #### <a name="classAnimationreplay">replay</a>
 Resets and plays the animation.
 ##### syntax
-    ktnp.replay(ktnp, x, y, w, h)
+	ktnp.replay(ktnp, x, y, w, h)
 ##### parameters
 - ktnp ([*KTNP*](#classKTNP))
 - x (Number)
@@ -227,7 +229,7 @@ Resets and plays the animation.
 * [get\ gy](#classSpriteGetgy)
 #### <a name="classSpriteconstructor"></a>
 ##### syntax
-    new Sprite(x, y, w, h, anims, ?state)
+	new Sprite(x, y, w, h, anims, ?state)
 ##### parameters
 - x (Number)
 - y (Number)
@@ -239,20 +241,20 @@ Resets and plays the animation.
 #### <a name="classSpriterender">render</a>
 Renders the sprite for a single time.
 ##### syntax
-    ktnp.render(ktnp)
+	ktnp.render(ktnp)
 ##### parameters
 - ktnp ([*KTNP*](#classKTNP))
 
 #### <a name="classSpriteGetgx">get gx</a>
 gets the global x (x - offsetX)
 ##### syntax
-    ktnp.gx
+	ktnp.gx
 ##### returns
 - (Number) ktnp.x - ktnp.offsetX
 
 #### <a name="classSpriteGetgy">get gy</a>
 gets the global y (y - offsetY)
 ##### syntax
-    ktnp.gy
+	ktnp.gy
 ##### returns
 - (Number) ktnp.y - ktnp.offsetY
