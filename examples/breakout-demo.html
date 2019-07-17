@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+<script src="../KTNCanvas.js"></script>
+<script>
+
+// This example based on https://github.com/end3r/Gamedev-Canvas-workshop
+
+
+
+
+var ktnp = new KTNP(),
+    ballRadius = 6,
+    x,
+    y,
+    dx = 2,
+    dy = -2,
+    paddleHeight = 10,
+    paddleWidth = 75,
+    paddleX,
+    rightPressed = false,
+    leftPressed = false,
+    brickRowCount = 5,
+    brickColumnCount = 3,
+    brickWidth = 75,
+    brickHeight = 20,
+    brickPadding = 10,
+    brickOffsetTop = 30,
+    brickOffsetLeft = 30,
+    score = 0,
+    lives = 3,
+    bricks = [];
+
+for(var c=0; c<brickColumnCount; c++) {
+    bricks[c] = [];
+    for(var r=0; r<brickRowCount; r++) {
+        bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+}
+
+
+ktnp.init = function() {
+    this.size(480, 320);
+    x = this.width / 2;
+    y = this.height - 30;
+    paddleX = (this.width - paddleWidth) / 2;
+    this.stroke = false;
+}
+ktnp.loop = function() {
+    this.background("#eee");
+    drawBricks();
+    drawBall();
+    drawPaddle();
+    drawScore();
+    drawLives();
+    collisionDetection();
+
+    if(x + dx > this.canvas.width-ballRadius || x + dx < ballRadius) {
+        dx = -dx;
+    }
+    if(y + dy < ballRadius) {
+        dy = -dy;
+    }
+    else if(y + dy > this.canvas.height-ballRadius) {
+        if(x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+        }
+        else {
+            lives--;
+            if(!lives) {
+                alert("GAME OVER");
+                ktnp.enableLoop = false;
+            }
+            else {
+                x = this.canvas.width/2;
+                y = this.canvas.height-30;
+                dx = 3;
+                dy = -3;
+                paddleX = (this.canvas.width-paddleWidth)/2;
+            }
+        }
+    }
+    if(rightPressed && paddleX < this.canvas.width-paddleWidth) {
+        paddleX += 7;
+    }
+    else if(leftPressed && paddleX > 0) {
+        paddleX -= 7;
+    }
+    x += dx;
+    y += dy;
+}
+
+ktnp.keydown = function(e) {
+    if(e.keyCode == 39) {
+        rightPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+}
+ktnp.keyup = function(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
+    }
+}
+ktnp.mousemove = function(e) {
+    if(this.mouseX > 0 && this.mouseX < this.width) {
+        paddleX = this.mouseX - paddleWidth/2;
+    }
+}
+
+function collisionDetection() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+            if(b.status == 1) {
+                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                    dy = -dy;
+                    b.status = 0;
+                    score++;
+                    if(score == brickRowCount*brickColumnCount) {
+                        alert("YOU WIN, CONGRATS!");
+                        ktnp.enableLoop = false;
+                    }
+                }
+            }
+        }
+    }
+}
+function drawBall() {
+    ktnp.fill = "#0095DD";
+    ktnp.ellipse(x, y, ballRadius, ballRadius);
+}
+function drawPaddle() {
+    ktnp.fill = "#0095DD";
+    ktnp.rect(paddleX, ktnp.canvas.height-paddleHeight, paddleWidth, paddleHeight);
+}
+
+function drawBricks() {
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            if(bricks[c][r].status == 1) {
+                var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                bricks[c][r].x = brickX;
+                bricks[c][r].y = brickY;
+                ktnp.fill = "#0095DD";
+                ktnp.stroke = false;
+                ktnp.rect(brickX, brickY, brickWidth, brickHeight);
+            }
+        }
+    }
+}
+
+function drawScore() {
+    ktnp.font = "16px Arial";
+    ktnp.fill = "#0095DD";
+    ktnp.text("Score: "+score, 8, 20);
+}
+function drawLives() {
+    ktnp.font = "16px Arial";
+    ktnp.fill = "#0095DD";
+    ktnp.text("Lives: "+lives, ktnp.canvas.width-65, 20);
+}
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+<script src="../KTNCanvas.js"></script>
+<script>
+
+{
+// calling the main class
+var ktnp = new KTNP();
+var pos = {
+    x: 250,
+    y: 250
+}
+
+ktnp.init = function() {
+    // resize the canvas
+    this.size(500);
+    // size(500) === size(500, 500)
+}
+ktnp.loop = function() {
+    // set background the black
+    this.background();
+    // background() === background("#000")
+
+    // no stroke
+    this.stroke = false;
+
+    // filling color #f99 (pinkish)
+    this.fill = "#f99";
+
+    // draw a rectangle
+    this.ellipse(pos.x, pos.y,10, 10);
+
+    pos.x += (Math.random()<.5) ? -1:1;
+    pos.y += (Math.random()<.5) ? -1:1;
+}
+
+
+
+}
+
+</script>
+</body>
+</html>
