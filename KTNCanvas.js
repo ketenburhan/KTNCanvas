@@ -16,6 +16,9 @@ class KTNP {
 	mouseY = 0;
 	winMouseX = 0;
 	winMouseY = 0;
+	fillState = true;
+	strokeState = true;
+	centerRect = false;
 	constructor(parentElement=document.body, ...images) {
 		this.imgs = images;
 
@@ -51,13 +54,23 @@ class KTNP {
 		return this.c.strokeStyle;
 	}
 	set stroke(stroke) {
-		this.c.strokeStyle = stroke;
+		if (stroke) {
+			this.c.strokeStyle = stroke;
+			this.strokeState = true;
+		} else {
+			this.strokeState = false;
+		}
 	}
 	get fill() {
 		return this.c.fillStyle;
 	}
 	set fill(fill) {
-		this.c.fillStyle = fill;
+		if (fill) {
+			this.fillState = true;
+			this.c.fillStyle = fill;
+		} else {
+			this.fillState = false;
+		}
 	}
 	get lineWidth() {
 		return this.c.lineWidth;
@@ -131,9 +144,9 @@ class KTNP {
 		window.requestAnimationFrame(()=>{this.looper()})
 	}
 	_r() {
-		if (!!this.fill)
+		if (!!this.fillState)
 			this.c.fill()
-		if (!!this.stroke)
+		if (!!this.strokeState)
 			this.c.stroke()
 	}
 	measureText(text) {
@@ -179,7 +192,11 @@ class KTNP {
 	}
 	rect(x, y, w, h) {
 		this.c.beginPath()
-		this.c.rect(x,y,w,h)
+		if (this.centerRect) {
+			this.c.rect(x-w/2, y-h/2, w, h)
+		} else {
+			this.c.rect(x,y,w,h)
+		}
 		this.c.closePath()
 		this._r()
 	}
@@ -248,6 +265,10 @@ class KTNP {
 	}
 	translate(x, y) {
 		this.c.translate(x, y);
+	}
+	cross(x, y) {
+		this.line(0, y, this.width, y);
+		this.line(x, 0, x, this.height);
 	}
 	createSubimage(name,index, sx,sy,sw,sh) {
 		this.subimgs[name] = [index,sx,sy,sw,sh]

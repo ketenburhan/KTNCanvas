@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KTNCanvas Demo</title>
+</head>
+<body>
+<script src="../KTNCanvas.js"></script>
+<script>
+
+{
+// calling the main class
+var ktnp = new KTNP();
+
+ktnp.init = function() {
+    // resize the canvas
+    this.size(500);
+    // size(500) === size(500, 500)
+}
+ktnp.loop = function() {
+    // set background the black
+    this.background();
+    // background() === background("#000")
+
+    // setup first rect
+	// NON-CENTERED RECT
+	this.centerRect = false;
+	
+    this.stroke = false;
+    this.fill = "#f99";
+    this.rect(150, 150, 50, 50);
+    this.stroke = "#9f9";
+    this.fill = "#9f9";
+	this.cross(150, 150);
+
+	// setup second rect
+	// CENTERED RECT
+	this.centerRect = true;
+	
+    this.stroke = false;
+    this.fill = "#99f";
+    this.rect(350, 350, 50, 50);
+    this.stroke = "#9f9";
+    this.fill = "#9f9";
+	this.cross(350, 350);
+
+}
+
+
+
+}
+
+</script>
+</body>
+</html>

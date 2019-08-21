@@ -51,6 +51,7 @@ python3 -m http.server 3000
 * mouseY (Number)
 * winMouseX (Number)
 * winMouseY (Number)
+* centerRect (boolean)
 * mousemove (Function)
 * click (Function)
 * canvas (HTMLCanvasElement)
@@ -79,6 +80,7 @@ python3 -m http.server 3000
 * [setTransform](#classKTNPsetTransform)
 * [transform](#classKTNPtransform)
 * [translate](#classKTNPtranslate)
+* [cross](#classKTNPcross)
 * [createSubimage](#classKTNPcreateSubimage)
 
 #### <a name="classKTNPconstructor">constructor</a>
@@ -312,6 +314,14 @@ transform.
 Translatethe position.
 ##### syntax
 	ktnp.translate(x, y)
+##### parameters
+- x (Number)
+- y (Number)
+
+#### <a name="classKTNPcross">cross</a>
+Draws a cross over canvas.
+##### syntax
+	ktnp.cross(x, y)
 ##### parameters
 - x (Number)
 - y (Number)
