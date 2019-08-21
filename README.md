@@ -21,7 +21,7 @@ python3 -m http.server 3000
 * That's all!
 
 # Get started
-* [download KTNCanvas.js here](https://github.com/ketenburhan/KTNCanvas/releases/download/0.1.0/KTNCanvas.js)
+* [download KTNCanvas.js here](https://github.com/ketenburhan/KTNCanvas/releases/download/latest/KTNCanvas.js)
 * add to html and use it
 	<script src="KTNCanvas.js"></script>
 
